@@ -1,0 +1,19 @@
+#James Nolan
+
+CC=g++
+CFLAGS= -std=c++11 -pthread
+OBJFILES = main.o Semaphore.o
+
+#This rule says that each .o file depends on a .cpp file of the same name
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
+
+ALL: $(OBJFILES)
+	$(CC) -o rendezvous $(OBJFILES) $(CFLAGS) $(DEBUGFLAGS)
+
+DEBUG: DEBUGFLAGS = -DDEBUG
+DEBUG: ALL
+
+#this is customary and just deletes all .o files
+CLEAN:
+	rm *.o
